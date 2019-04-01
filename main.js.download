@@ -1,0 +1,44 @@
+function formatBytes(bytes, decimals) {
+	if (bytes == 0){
+		return '0 Bytes';
+	}
+	var k = 1024;
+	var dm = decimals || 2;
+	var sizes = [ 'Bytes', 'KB', 'MB', 'GB','TB', 'PB', 'EB', 'ZB', 'YB' ];
+	var i = Math.floor(Math.log(bytes)/ Math.log(k));
+	
+	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+function validateFileSize(fileSize,fileSizeLimit,errorMessage) {
+	
+	if(fileSize > fileSizeLimit){
+		var maxSize = formatBytes(fileSizeLimit);
+		alert(errorMessage+" "+maxSize);
+		return false;
+	}
+	
+	return true;
+}
+
+function convertFileSize(sourceID,targetID) {
+	
+	var value = $('#'+sourceID).val();
+	
+	$('#'+targetID).html("<b><p>"+formatBytes(value)+"</p></b>");
+	
+	$('#'+sourceID).on('input', function(){
+		
+		var text = formatBytes(this.value);
+		
+		var test =  $('#'+targetID);
+		
+		$('#'+targetID).html("<b><p>"+text+"</p></b>");
+		
+	});
+	
+}
+
+
+
+

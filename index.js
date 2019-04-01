@@ -28,14 +28,10 @@ function filter(testFolder) {
 function ex() {
   listFile.forEach(filename => {
     if (filename.endsWith('.zip')) {
-      exec(`7z e ${filename}
-      rm -rf ${filename}
-      `)
+      exec(`7z e '${filename}' && rm -rf '${filename}'`)
     } 
     if (filename.endsWith('.rar')) {
-      exec(`unrar e ${filename}
-      rm -rf ${filename}
-      `)
+      exec(`unrar e '${filename}' && rm -rf '${filename}'`)
     }
   });
  
