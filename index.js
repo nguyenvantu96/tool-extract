@@ -1,16 +1,8 @@
 const testFolder = './';
-var extract = require('extract-zip')
 const fs = require('fs');
 var listFile = [];
 var listFolder = [];
 const { exec } = require('child_process');
-
-function deleteFile(keyword, path,name) {
-  
-    if (name.search(keyword) >= 0) {
-        fs.unlinkSync(path + '\\' + name);
-    }
-}
 
 function filter() {
     fs.readdir(testFolder, (err, files) => {
@@ -26,21 +18,23 @@ function filter() {
         });
     });
 }
-
-function ex(filename) {
+function ex() {
+  listFile.forEach(filename => {
     if (filename.endsWith('.zip')) {
-        extract(filename, {
-            dir: __dirname
-        }, function (err) {})
+      exec(`7z e ${filename}
+      rm -rf ${filename}
+      `)
+    } 
+    if (filename.endsWith('.rar')) {
+      exec(`unrar e ${filename}
+      rm -rf ${filename}
+      `)
     }
+  });
+ 
 }
-// exec(`cd ${__dirname}
-// mkdir acc`, (error, stdout, stderr) => {
-//     if (error) {
-//       console.error(`exec error: ${error}`);
-//       return;
-//     }
-//     console.log(`stdout: ${stdout}`);
-//     console.log(`stderr: ${stderr}`);
-//   });
-exec('7z e "New folder.zip"')
+function main (){
+    filter();
+    ex()
+}
+main();
