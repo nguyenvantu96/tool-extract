@@ -19,7 +19,10 @@ function filter(testFolder) {
             }
         });
         q--;
-        if(q==0) ex();
+        if(q==0) {
+        ex();
+             console.log(listFile);
+        }
     });
 }
 function ex() {
