@@ -16,6 +16,7 @@ function filter() {
                 }
             }
         });
+            ex()
     });
 }
 function ex() {
@@ -35,6 +36,6 @@ function ex() {
 }
 function main (){
     filter();
-    ex()
+
 }
 main();
