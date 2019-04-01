@@ -1,22 +1,25 @@
-const testFolder = './';
+
 const fs = require('fs');
 var listFile = [];
 var listFolder = [];
 const { exec } = require('child_process');
-
-function filter() {
+var q = 0;
+function filter(testFolder) {
     fs.readdir(testFolder, (err, files) => {
         files.forEach(file => {
             if (file.endsWith('.rar') || file.endsWith('.zip')) {
-                listFile.push(file)
+                listFile.push(testFolder+file)
             } else {
                 var stats = fs.statSync(testFolder + file);
                 if (stats.isDirectory()) {
-                    listFolder.push(file)
+                    q++;
+                   
+                    filter(testFolder + file + '/');
                 }
             }
         });
-            ex()
+        q--;
+        if(q==0) ex();
     });
 }
 function ex() {
@@ -35,7 +38,8 @@ function ex() {
  
 }
 function main (){
-    filter();
+    q++;
+    filter('./');
 
 }
 main();
