@@ -9,30 +9,41 @@ var deleteTxt = '';
 const { exec } = require('child_process');
 var q = 0;
 
+// function filter(testFolder) {
+//     fs.readdir(testFolder, (err, files) => {
+//         files.forEach(file => {
+//             if (file.endsWith('.rar') || file.endsWith('.zip')) {
+//                 listFile.push(testFolder+file)
+//             } else {
+//                 var stats = fs.statSync(testFolder + file);
+//                 if (stats.isDirectory()) {
+//                     q++;
+                   
+//                     filter(testFolder + file + '/');
+//                 } 
+//                 if(stats.isFile()){
+//                     listlinhtin.push(testFolder+ file)
+//                 }
+//             }
+//         });
+//         q--;
+//         if(q==0) {
+//          deleteFile();
+//         ex();
+//         }
+//     });
+// }
 function filter(testFolder) {
     fs.readdir(testFolder, (err, files) => {
         files.forEach(file => {
             if (file.endsWith('.rar') || file.endsWith('.zip')) {
-                listFile.push(testFolder+file)
-            } else {
-                var stats = fs.statSync(testFolder + file);
-                if (stats.isDirectory()) {
-                    q++;
-                   
-                    filter(testFolder + file + '/');
-                } 
-                if(stats.isFile()){
-                    listlinhtin.push(testFolder+ file)
-                }
-            }
-        });
-        q--;
-        if(q==0) {
-         deleteFile();
+                                listFile.push(testFolder+file)
+                            }
+        })
         ex();
-        }
-    });
+    })
 }
+
 function deleteFile(){
     listlinhtin.forEach(element=>{
         if(element.search(deleteTxt) >= 0 && deleteTxt != ''){
@@ -45,7 +56,7 @@ function ex() {
     const path = filename.substr(0, filename.lastIndexOf('/') + 1);
     if (filename.endsWith('.zip')) {
       
-      exec(`7z e '${filename}' -o${path} && rm -rf '${filename}'`)
+      exec(`unzip '${filename}' && rm -rf '${filename}'`)
     } 
     if (filename.endsWith('.rar')) {
              exec(`unrar e '${filename}' ${path} && rm -rf '${filename}'`)
@@ -55,7 +66,7 @@ function ex() {
  
 }
 function main (){
-    q++;
+    // q++;
     filter('./');
    
 }
