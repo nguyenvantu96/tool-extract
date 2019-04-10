@@ -19,7 +19,7 @@ function filter(testFolder) {
 
 function ex(testFolder) {
     listFolder.forEach(filename => {
-            exec(`zip -r '${filename}.zip' ${testFolder}`)
+            exec(`zip -r '${filename}.zip' ${testFolder}${filename}`)
             console.log(`zip -r '${filename}.zip' ${testFolder}`);
     });
 }
