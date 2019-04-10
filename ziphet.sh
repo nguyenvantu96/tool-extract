@@ -1,2 +1,2 @@
 #!/bin/bash
-node yeucau6.js
+/usr/bin/node yeucau6.js
