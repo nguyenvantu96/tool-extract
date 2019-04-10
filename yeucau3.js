@@ -6,7 +6,7 @@ var listFolder = [];
 var listlinhtin = [];
 
 
-var deleteTxt = 'vantu';
+var deleteTxt = ['vantu','vantu2'];
 const { exec } = require('child_process');
 var q = 0;
 
@@ -37,9 +37,11 @@ function filter(testFolder) {
 
 function deleteFile(){
     listlinhtin.forEach(element=>{
-        if(element.search(deleteTxt) >= 0 && deleteTxt != ''){
+        deleteTxt.forEach(ele =>{
+			if(element.search(ele) >= 0 && deleteTxt != null){
             exec(`rm -rf ${element}`)
         }
+		})
     })
 }
 
